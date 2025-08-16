@@ -25,7 +25,8 @@ interface AdGenerationOptions {
 
 // This function contains the actual API call logic
 const generateAdScript = async (payload: { prompt: string, options: AdGenerationOptions | null }) => {
-  const response = await fetch('http://localhost:3000/api/response', {
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+  const response = await fetch(`${API_BASE_URL}/api/response`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload),
@@ -44,6 +45,8 @@ const Index = () => {
   const [isSignInOpen, setIsSignInOpen] = useState(false);
   const [isSignUpOpen, setIsSignUpOpen] = useState(false);
   const [showHistory, setShowHistory] = useState(true);
+  
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
 
   // TanStack Query mutation hook to handle the API call
   const { mutate, isPending, isSuccess, data, error, reset } = useMutation({
@@ -224,12 +227,12 @@ const Index = () => {
                 </div>
 
                 <VideoPlayer
-                  videoUrl={data?.videoUrl ? `http://localhost:3000${data.videoUrl}` : undefined}
+                  videoUrl={data?.videoUrl ? `${API_BASE_URL}${data.videoUrl}` : undefined}
                   onRegenerate={handleGenerate}
                   onDownload={() => {
                     if (data?.videoUrl) {
                       const link = document.createElement('a');
-                      link.href = `http://localhost:3000${data.videoUrl}`;
+                      link.href = `${API_BASE_URL}${data.videoUrl}`;
                       link.download = `${data.title || 'ad'}.mp4`;
                       link.click();
                     }
@@ -239,7 +242,7 @@ const Index = () => {
                 {/* Debug info */}
                 {data?.videoUrl && (
                   <div className="mt-4 p-3 bg-black/20 rounded-lg text-xs text-muted-foreground">
-                    <strong>Debug:</strong> Video URL: {`http://localhost:3000${data.videoUrl}`}
+                    <strong>Debug:</strong> Video URL: {`${API_BASE_URL}${data.videoUrl}`}
                   </div>
                 )}
 

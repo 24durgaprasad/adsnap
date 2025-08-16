@@ -192,8 +192,27 @@ Dialogue: 0,0:00:00.10,${endTime},Default,,0,0,0,,{\\an2}${text.replace(/\\/g, '
 }
 
 // --- Client Initializations ---
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-const pexelsClient = createClient(process.env.PEXELS_API_KEY);
+let genAI, pexelsClient;
+
+try {
+    if (!process.env.GEMINI_API_KEY) {
+        throw new Error('GEMINI_API_KEY is not set in environment variables');
+    }
+    if (!process.env.PEXELS_API_KEY) {
+        throw new Error('PEXELS_API_KEY is not set in environment variables');
+    }
+    if (!process.env.ELEVENLABS_API_KEY) {
+        console.warn('⚠️ ELEVENLABS_API_KEY is not set - voiceover generation will be disabled');
+    }
+    
+    genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+    pexelsClient = createClient(process.env.PEXELS_API_KEY);
+    console.log('✅ API clients initialized successfully');
+} catch (error) {
+    console.error('❌ Error initializing API clients:', error.message);
+    console.error('Please check your .env file and ensure all required API keys are set');
+    process.exit(1);
+}
 
 // --- Main API Route ---
 router.post("/response", async (req, res) => {

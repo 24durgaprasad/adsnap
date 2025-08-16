@@ -1,46 +1,57 @@
-# AdGenius - AI Video Ad Generator
+# AdGenius - AI Video# AdSnap Backend
 
-A full-stack application that generates professional video advertisements using AI.
+A Node.js/Express backend for generating AI-powered video advertisements.
 
-## Architecture
+## Features
 
-- **Backend**: Express.js server with Gemini AI, Pexels API, and ElevenLabs integration
-- **Frontend**: React/Vite application with modern UI components
-- **Video Processing**: FFmpeg for video editing and compilation
+- **AI Storyboard Generation** using Google Gemini API
+- **Stock Video Integration** with Pexels API
+- **Text-to-Speech Voiceovers** using ElevenLabs API
+- **Video Processing** with FFmpeg
+- **RESTful API** for frontend integration
+- **CORS Support** for cross-origin requests
 
-## Quick Start
+## Setup
 
-### Prerequisites
-- Node.js (v16+)
-- FFmpeg installed and accessible in PATH
-- API Keys for:
-  - Google Gemini AI
-  - Pexels
-  - ElevenLabs
-
-### Setup
-
-1. **Install Backend Dependencies**
+1. Install dependencies:
    ```bash
    npm install
    ```
 
-2. **Install Frontend Dependencies**
-   ```bash
-   cd gemini-ad-craft-main
-   npm install
-   cd ..
+2. Create a `.env` file with your API keys:
    ```
-
-3. **Configure Environment Variables**
-   Create `.env` file in root directory:
-   ```env
    GEMINI_API_KEY=your_gemini_api_key
    PEXELS_API_KEY=your_pexels_api_key
    ELEVENLABS_API_KEY=your_elevenlabs_api_key
+   PORT=5001
    ```
 
-### Development
+3. Start the server:
+   ```bash
+   npm start
+   ```
+
+## API Endpoints
+
+- `GET /` - Health check endpoint
+- `POST /api/response` - Generate video advertisement from prompt
+
+## Requirements
+
+- Node.js 14+
+- FFmpeg installed on system
+- Valid API keys for Gemini, Pexels, and ElevenLabs
+
+## Environment Variables
+
+- `GEMINI_API_KEY` - Google Gemini API key for AI text generation
+- `PEXELS_API_KEY` - Pexels API key for stock videos
+- `ELEVENLABS_API_KEY` - ElevenLabs API key for text-to-speech
+- `PORT` - Server port (default: 5001)
+
+## Deployment
+
+The backend can be deployed to any Node.js hosting service like Heroku, Railway, or Render.
 
 **Option 1: Use the automated script**
 ```bash
