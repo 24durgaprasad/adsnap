@@ -5,7 +5,7 @@ const cors = require('cors');
 const geminiRoutes = require('./routes/response');
 
 const app = express();
-const port = 3000;
+const port = 5000;
 
 app.use(cors({
   origin: ['http://localhost:8080', 'http://127.0.0.1:8080'],
