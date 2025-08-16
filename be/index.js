@@ -29,6 +29,10 @@ app.use('/videos', express.static('public/videos', {
 
 app.use('/api', geminiRoutes);
 
+app.get("/",(req,res)=>{
+  res.send("Welcome to backend adsnap");
+})
+
 app.listen(port, () => {
   console.log(`✅ Server running. Videos will be available at http://localhost:${port}/videos/`);
 });
